@@ -7,7 +7,7 @@ const Playlist = (_ => {
   let currentSong = new Audio(songs[currentlyPlayingIndex].url); // builtin browser web API
   let isPlaying = false;
 
-  currentSong.currentTime = 255;
+  //currentSong.currentTime = 255;
 
   // cache the DOM
   const playlistEl = document.querySelector('.playlist');
@@ -18,7 +18,7 @@ const Playlist = (_ => {
   }
 
   const changeAudioSrc = _ => {
-    currentSong.src = song[currentlyPlayingIndex].url;
+    currentSong.src = songs[currentlyPlayingIndex].url;
   }
 
   const togglePlayPause = _ => {
