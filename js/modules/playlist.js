@@ -12,6 +12,44 @@ const Playlist = (_ => {
 
   const init = _ => {
     render();
+    listeners();
+  }
+
+  const changeAudioSrc = _ => {
+    currentSong.src = song[currentlyPlayingIndex].url;
+  }
+
+  const togglePlayPause = _ => {
+    return currentSong.paused ? currentSong.play() : currentSong.pause();
+  }
+
+  const mainPlay = clickedIndex => {
+    if (currentlyPlayingIndex === clickedIndex) {
+      console.log('same song');
+      // toggle play or pause
+      togglePlayPause();
+    } else {
+      console.log('new song');
+      currentlyPlayingIndex = clickedIndex;
+      changeAudioSrc();
+      togglePlayPause();
+    }
+  }
+
+  const listeners = _ => {
+    // 1. Get index of li tag when play icon clicked
+    // 2. Change the currentPlayingIndex to index of li tag
+    // 3. Play or pause
+    // 4. If it's not the same song, change the src to that new song after changing
+    // the currentPlayingInex
+    playlistEl.addEventListener('click', event => {
+      if (event.target && event.target.matches('.fa')) {
+        const listElem = event.target.parentNode.parentNode;
+        const listElemIndex = [...listElem.parentElement.children].indexOf(listElem); // convert to array
+        mainPlay(listElemIndex);
+        render();
+      }
+    })
   }
 
   const render = _ => {
