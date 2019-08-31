@@ -7,6 +7,8 @@ const Playlist = (_ => {
   let currentSong = new Audio(songs[currentlyPlayingIndex].url); // builtin browser web API
   let isPlaying = false;
 
+  currentSong.currentTime = 255;
+
   // cache the DOM
   const playlistEl = document.querySelector('.playlist');
 
@@ -36,6 +38,15 @@ const Playlist = (_ => {
     }
   }
 
+  const playNext = _ => {
+    if (songs[currentlyPlayingIndex + 1]){
+      currentlyPlayingIndex++;
+      changeAudioSrc();
+      togglePlayPause();
+      render();
+    }
+  }
+
   const listeners = _ => {
     // 1. Get index of li tag when play icon clicked
     // 2. Change the currentPlayingIndex to index of li tag
@@ -51,6 +62,11 @@ const Playlist = (_ => {
       }
     })
   }
+
+  currentSong.addEventListener('ended', _ => {
+    // play next function
+    playNext();
+  })
 
   const render = _ => {
     let markup = '';
