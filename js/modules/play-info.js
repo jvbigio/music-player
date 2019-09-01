@@ -1,4 +1,5 @@
 /* Play-info.js is the left side of the app: 12 songs, play button */
+import Playlist from './playlist.js';
 
 const PlayInfo = (_ => {
 
@@ -14,6 +15,18 @@ const PlayInfo = (_ => {
 
   const init = _ => {
     render();
+    listeners();
+  }
+
+  const listeners = _ => {
+    playerTriggerEl.addEventListener('click',_ => {
+      // 1. Change our own (Playinfo's) state
+      state.isPlaying = state.isPlaying ? false : true;
+      // 2. Render it
+      render();
+      // 3. Toggle the play/pause song functionality
+      Playlist.flip();
+    })
   }
 
   const setState = obj => {
