@@ -87,6 +87,7 @@ const Playlist = (_ => {
     playNext();
   })
 
+  // renders out everything
   const render = _ => {
     let markup = '';
 
